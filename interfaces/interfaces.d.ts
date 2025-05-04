@@ -1,4 +1,4 @@
-export type FriendType = {
+interface Friend {
     id: number;
     orginization_id: string | null;
     url: string | null;
@@ -79,4 +79,4 @@ export type FriendType = {
             href: string | null;
         } | null;
     };
-};
+}
