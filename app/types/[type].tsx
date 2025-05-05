@@ -1,14 +1,29 @@
-import SubCard from "@/components/SubCard";
+import BackButton from "@/components/BackButton";
+import CoatCard from "@/components/subcards/CoatCard";
+import ColorCard from "@/components/subcards/ColorCard";
 import { useFetch } from "@/hooks/useFetch";
 import { getSingleAnimalType } from "@/lib/api";
 import { icons } from "@/lib/icons";
 import { getScientificName } from "@/lib/utils";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
-import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
+import {
+    ActivityIndicator,
+    Image,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
 
 const TypePage = () => {
     const { type } = useLocalSearchParams();
+
+    const router = useRouter();
+
+    const onPress = () => {
+        router.back();
+    };
 
     const {
         data: animalType,
@@ -50,36 +65,61 @@ const TypePage = () => {
                             {scientificName}
                         </Text>
                     </View>
-                    <Text className="text-center text-dark-100 text-3xl font-bold my-4 mx-auto">
-                        Coats
-                    </Text>
-                    <FlatList
-                        data={animalType?.coats}
-                        renderItem={({ item }) => <SubCard text={item} />}
-                        keyExtractor={(item) => item}
+                    <ScrollView
                         showsVerticalScrollIndicator={false}
-                        numColumns={2}
-                        columnWrapperStyle={{
-                            justifyContent: "flex-start",
-                            gap: 4,
-                            marginVertical: 2,
-                        }}
                         contentContainerStyle={{
-                            paddingBottom: 50,
+                            justifyContent: "center",
+                            gap: 6,
+                            marginBottom: 10,
+                            paddingBottom: 80,
                         }}
-                        className="w-full mx-auto"
-                    />
-                    <Text className="text-center text-dark-100 text-3xl font-bold my-4 mx-auto">
-                        Colors
-                    </Text>
-                    <FlatList
-                        data={animalType?.colors}
-                        renderItem={({ item }) => <SubCard text={item} />}
-                        keyExtractor={(item) => item}
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        className="w-full mx-auto"
-                    />
+                    >
+                        <View className="mx-auto">
+                            <TouchableOpacity>
+                                <Text className="text-center text-dark-100 text-3xl font-bold my-4 mx-auto underline">
+                                    All Dogs
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View className="flex-row justify-between mx-auto w-1/2">
+                            <TouchableOpacity>
+                                <Text className="text-center text-dark-100 text-3xl font-semibold my-4 mx-auto underline">
+                                    Male
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <Text className="text-center text-dark-100 text-3xl font-semibold my-4 mx-auto underline">
+                                    Female
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        {animalType?.coats.length > 0 && (
+                            <View>
+                                <Text className="text-center text-dark-100 text-3xl font-bold my-4 mx-auto">
+                                    Coats
+                                </Text>
+                                <View className="flex-row flex-wrap justify-center mx-auto w-full gap-4">
+                                    {animalType?.coats.map((coat: string) => (
+                                        <CoatCard key={coat} text={coat} />
+                                    ))}
+                                </View>
+                            </View>
+                        )}
+
+                        <View>
+                            <Text className="text-center text-dark-100 text-3xl font-bold my-4 mx-auto">
+                                Colors
+                            </Text>
+                            <View className="flex-row flex-wrap justify-center mx-auto w-full gap-2">
+                                {animalType?.colors.map((color: string) => (
+                                    <ColorCard key={color} text={color} />
+                                ))}
+                            </View>
+                        </View>
+                    </ScrollView>
+                    <BackButton onPress={onPress} />
                 </>
             )}
         </View>
