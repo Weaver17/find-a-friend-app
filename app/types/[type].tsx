@@ -2,10 +2,11 @@ import BackButton from "@/components/BackButton";
 import CoatCard from "@/components/subcards/CoatCard";
 import ColorCard from "@/components/subcards/ColorCard";
 import { useFetch } from "@/hooks/useFetch";
+import { useMyRouter } from "@/hooks/useMyRouter";
 import { getSingleAnimalType } from "@/lib/api";
 import { icons } from "@/lib/icons";
 import { getScientificName } from "@/lib/utils";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import React from "react";
 import {
     ActivityIndicator,
@@ -19,11 +20,7 @@ import {
 const TypePage = () => {
     const { type } = useLocalSearchParams();
 
-    const router = useRouter();
-
-    const onPress = () => {
-        router.back();
-    };
+    const { onPress } = useMyRouter();
 
     const {
         data: animalType,
@@ -75,24 +72,36 @@ const TypePage = () => {
                         }}
                     >
                         <View className="mx-auto">
-                            <TouchableOpacity>
-                                <Text className="text-center text-dark-100 text-3xl font-bold my-4 mx-auto underline">
-                                    All Dogs
-                                </Text>
-                            </TouchableOpacity>
+                            <Link href={`/types/type/${type}`} asChild>
+                                <TouchableOpacity className="flex-row justify-center w-32 h-14 mx-auto bg-light-300 rounded-full py-2">
+                                    <Text className="text-center text-dark-100 text-3xl font-bold my-1 mx-auto">
+                                        All
+                                    </Text>
+                                </TouchableOpacity>
+                            </Link>
                         </View>
 
                         <View className="flex-row justify-between mx-auto w-1/2">
-                            <TouchableOpacity>
-                                <Text className="text-center text-dark-100 text-3xl font-semibold my-4 mx-auto underline">
-                                    Male
-                                </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity>
-                                <Text className="text-center text-dark-100 text-3xl font-semibold my-4 mx-auto underline">
-                                    Female
-                                </Text>
-                            </TouchableOpacity>
+                            <Link
+                                href={`/types/type/${type}&gender=male`}
+                                asChild
+                            >
+                                <TouchableOpacity>
+                                    <Text className="text-center text-dark-100 text-3xl font-semibold my-4 mx-auto underline">
+                                        Male
+                                    </Text>
+                                </TouchableOpacity>
+                            </Link>
+                            <Link
+                                href={`/types/type/${type}&gender=female`}
+                                asChild
+                            >
+                                <TouchableOpacity>
+                                    <Text className="text-center text-dark-100 text-3xl font-semibold my-4 mx-auto underline">
+                                        Female
+                                    </Text>
+                                </TouchableOpacity>
+                            </Link>
                         </View>
 
                         {animalType?.coats.length > 0 && (
@@ -102,7 +111,11 @@ const TypePage = () => {
                                 </Text>
                                 <View className="flex-row flex-wrap justify-center mx-auto w-full gap-4">
                                     {animalType?.coats.map((coat: string) => (
-                                        <CoatCard key={coat} text={coat} />
+                                        <CoatCard
+                                            key={coat}
+                                            type={type}
+                                            text={coat}
+                                        />
                                     ))}
                                 </View>
                             </View>
@@ -114,7 +127,11 @@ const TypePage = () => {
                             </Text>
                             <View className="flex-row flex-wrap justify-center mx-auto w-full gap-2">
                                 {animalType?.colors.map((color: string) => (
-                                    <ColorCard key={color} text={color} />
+                                    <ColorCard
+                                        key={color}
+                                        type={type}
+                                        text={color}
+                                    />
                                 ))}
                             </View>
                         </View>

@@ -19,6 +19,10 @@ export default function RootLayout() {
                 name="types/[type]"
                 options={{ headerShown: false }}
             />
+            <Stack.Screen
+                name="types/type/[type]"
+                options={{ headerShown: false }}
+            />
         </Stack>
     );
 }

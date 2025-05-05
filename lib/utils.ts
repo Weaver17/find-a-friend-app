@@ -9,6 +9,26 @@ export function slugify(text: string) {
         .replace(/(^-+)|(-+$)/g, ""); // Trim leading/trailing dashes
 }
 
+export function deslugify(slug: string) {
+    return slug
+        .replace(/-+/g, " ") // Replace one or more dashes with a space
+        .trim(); // Clean leading/trailing spaces
+}
+
+export function extractPetfinderParams(url: string) {
+    const params = new URL(url).searchParams;
+
+    const allowedKeys = ["type", "gender", "coat", "color"];
+    const extracted: Record<string, string> = {};
+
+    for (const key of allowedKeys) {
+        const value = params.get(key);
+        if (value !== null) extracted[key] = value;
+    }
+
+    return extracted;
+}
+
 export const getAnimalTypeIcon = (animalType: string) => {
     let icon = icons.paw;
 

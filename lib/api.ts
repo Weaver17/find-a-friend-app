@@ -1,5 +1,5 @@
 // Setup fetch config
-const PETFINDER_URL = process.env.EXPO_PUBLIC_BASE_URL;
+export const PETFINDER_URL = process.env.EXPO_PUBLIC_BASE_URL;
 const CLIENT_ID = process.env.EXPO_PUBLIC_CLIENT_ID;
 const CLIENT_API_KEY = process.env.EXPO_PUBLIC_CLIENT_API_KEY;
 
@@ -33,7 +33,7 @@ const fetchAccessKey = async (clientId: string, clientSecret: string) => {
 let accessKey: string | null = null;
 
 // setup get all animals by latest date
-export const getAllAnimals = async () => {
+export const getAllAnimals = async (page: number = 1) => {
     try {
         accessKey = await fetchAccessKey(CLIENT_ID!, CLIENT_API_KEY!);
 
@@ -41,7 +41,7 @@ export const getAllAnimals = async () => {
             throw new Error("No access key");
         }
 
-        const res = await fetch(`${PETFINDER_URL}/animals?sort=recent`, {
+        const res = await fetch(`${PETFINDER_URL}/animals?page=${page}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -150,6 +150,37 @@ export const getSingleAnimalType = async (animalType: string) => {
         const data = await res.json();
 
         return data.type;
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+};
+
+// get animals by single type
+export const getAnimalsBySingleType = async (animalType: string) => {
+    try {
+        accessKey = await fetchAccessKey(CLIENT_ID!, CLIENT_API_KEY!);
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const res = await fetch(`${PETFINDER_URL}/animals?type=${animalType}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessKey}`,
+            },
+        });
+
+        if (!res.ok) {
+            // @ts-ignore
+            throw new Error("Failed to fetch animals by type", res.statusText);
+        }
+
+        const data = await res.json();
+
+        return data.animals;
     } catch (e) {
         console.log(e);
         throw e;
