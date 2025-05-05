@@ -17,7 +17,7 @@ const AnimalsPage = () => {
             />
 
             <Text className="text-center text-dark-200 text-4xl font-bold my-6 mx-auto">
-                Animal Types
+                Animal Breeds
             </Text>
 
             {loading && (
