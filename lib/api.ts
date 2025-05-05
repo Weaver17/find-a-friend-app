@@ -93,3 +93,65 @@ export const getAnimalTypes = async () => {
         throw e;
     }
 };
+
+// get all organizations
+export const getAllOrganizations = async () => {
+    try {
+        accessKey = await fetchAccessKey(CLIENT_ID!, CLIENT_API_KEY!);
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const res = await fetch(`${PETFINDER_URL}/organizations`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessKey}`,
+            },
+        });
+
+        if (!res.ok) {
+            // @ts-ignore
+            throw new Error("Failed to fetch all orgs", res.statusText);
+        }
+
+        const data = await res.json();
+
+        return data.organizations;
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+};
+
+// get single animal type
+export const getSingleAnimalType = async (animalType: string) => {
+    try {
+        accessKey = await fetchAccessKey(CLIENT_ID!, CLIENT_API_KEY!);
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const res = await fetch(`${PETFINDER_URL}/types/${animalType}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessKey}`,
+            },
+        });
+
+        if (!res.ok) {
+            // @ts-ignore
+            throw new Error("Failed to fetch animal type", res.statusText);
+        }
+
+        const data = await res.json();
+
+        return data.type;
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+};

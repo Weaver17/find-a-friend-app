@@ -1,4 +1,4 @@
-import { getWhiteTypeIcon } from "@/lib/utils";
+import { getWhiteTypeIcon, slugify } from "@/lib/utils";
 import { Link } from "expo-router";
 import React from "react";
 import { Image, Text, TouchableOpacity } from "react-native";
@@ -6,8 +6,10 @@ import { Image, Text, TouchableOpacity } from "react-native";
 const TypeCard = ({ name }: { name: string }) => {
     const icon = getWhiteTypeIcon(name);
 
+    const nameSlug = slugify(name);
+
     return (
-        <Link href={`/types/${name}`} asChild>
+        <Link href={`/types/${nameSlug}`} asChild>
             <TouchableOpacity className="flex-row gap-4 justify-center w-full h-20 bg-primary rounded-full py-2">
                 <Image
                     source={icon}

@@ -57,7 +57,7 @@ export default function Index() {
                     }}
                     className="mb-20"
                     ListHeaderComponent={
-                        <Text className="text-center text-dark-200 text-4xl font-bold my-6 mx-auto">
+                        <Text className="text-center text-dark-200 text-4xl font-bold mb-6 mx-auto">
                             Latest Potential Friends:
                         </Text>
                     }

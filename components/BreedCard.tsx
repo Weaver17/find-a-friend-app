@@ -7,7 +7,7 @@ const BreedCard = ({ name }: { name: string }) => {
     const icon = getDarkTypeIcon(name);
 
     return (
-        <Link href={`/breeds/${name}`} asChild>
+        <Link href={`/breeds/${name.toLowerCase()}`} asChild>
             <TouchableOpacity className="flex-row gap-4 justify-center w-full h-20 bg-primary rounded-full py-2">
                 <Image
                     source={icon}

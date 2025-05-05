@@ -2,6 +2,13 @@ import { darkIcons } from "./dark-icons";
 import { icons } from "./icons";
 import { whiteIcons } from "./white-icons";
 
+export function slugify(text: string) {
+    return text
+        .toLowerCase()
+        .replace(/[ ,&]+/g, "-") // Replace space, comma, ampersand with -
+        .replace(/(^-+)|(-+$)/g, ""); // Trim leading/trailing dashes
+}
+
 export const getAnimalTypeIcon = (animalType: string) => {
     let icon = icons.paw;
 
@@ -102,4 +109,29 @@ export const getDarkTypeIcon = (animalType: string) => {
     }
 
     return icon;
+};
+
+export const getScientificName = (animalType: string) => {
+    let scientificName = "N/A";
+
+    switch (animalType) {
+        case "Dog":
+            scientificName = "Canis lupus familiaris";
+
+            break;
+        case "Cat":
+            scientificName = "Felis catus";
+            break;
+        case "Bird":
+            scientificName = "Aves";
+            break;
+        case "Rabbit":
+            scientificName = "Oryctolagus cuniculus";
+            break;
+        case "Horse":
+            scientificName = "Equus caballus";
+            break;
+    }
+
+    return scientificName;
 };
