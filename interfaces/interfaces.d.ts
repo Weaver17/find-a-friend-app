@@ -95,3 +95,59 @@ interface AnimalType {
         };
     };
 }
+
+interface Breeds {
+    name: string;
+    _links: {
+        type: {
+            href: string;
+        };
+    };
+}
+
+interface Orginization {
+    id: string | null;
+    name: string | null;
+    email: string | null;
+    phone: string | null;
+    address: {
+        address1: string | null;
+        address2: string | null;
+        city: string | null;
+        state: string | null;
+        postcode: string | null;
+        country: string | null;
+    };
+    hours: {
+        monday: string | null;
+        tuesday: string | null;
+        wednesday: string | null;
+        thursday: string | null;
+        friday: string | null;
+        saturday: string | null;
+        sunday: string | null;
+    };
+    url: string | null;
+    website: string | null;
+    mission_statement: string | null;
+    adoption: {
+        policy: string | null;
+        url: string | null;
+    };
+    social_media: {
+        facebook: string | null;
+        twitter: string | null;
+        youtube: string | null;
+        instagram: string | null;
+        pinterest: string | null;
+    };
+    photos?:
+        | {
+              small: string | null;
+              medium: string | null;
+              large: string | null;
+              full: string | null;
+          }[]
+        | null;
+    distance: number | null;
+}

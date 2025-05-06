@@ -1,5 +1,5 @@
 import FriendCard from "@/components/FriendCard";
-import PageButton from "@/components/PageButton";
+import PaginateBtns from "@/components/PaginateBtns";
 import { useFetch } from "@/hooks/useFetch";
 import { useMyRouter } from "@/hooks/useMyRouter";
 import { getAllAnimals } from "@/lib/api";
@@ -105,39 +105,12 @@ export default function Index() {
                         </Text>
                     }
                     ListFooterComponent={
-                        <View className="mx-auto gap-6">
-                            <Text className="text-center text-dark-200 text-base font-semibold">
-                                Page: {page}
-                            </Text>
-                            {page === 1 && (
-                                <PageButton
-                                    text="Next Page"
-                                    color="#114A04"
-                                    onPress={onNextPress}
-                                />
-                            )}
-                            {page === totalPages && (
-                                <PageButton
-                                    text="Previous Page"
-                                    color="#114A04"
-                                    onPress={onPrevPress}
-                                />
-                            )}
-                            {page > 1 && page < totalPages && (
-                                <View className="flex-row gap-6">
-                                    <PageButton
-                                        text="Previous Page"
-                                        color="#114A04"
-                                        onPress={onPrevPress}
-                                    />
-                                    <PageButton
-                                        text="Next Page"
-                                        color="#114A04"
-                                        onPress={onNextPress}
-                                    />
-                                </View>
-                            )}
-                        </View>
+                        <PaginateBtns
+                            totalPages={totalPages}
+                            page={page}
+                            onNextPress={onNextPress}
+                            onPrevPress={onPrevPress}
+                        />
                     }
                 />
             )}

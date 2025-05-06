@@ -1,32 +1,66 @@
 import BackButton from "@/components/BackButton";
 import FriendCard from "@/components/FriendCard";
-import PageButton from "@/components/PageButton";
+import PaginateBtns from "@/components/PaginateBtns";
 import { useFetch } from "@/hooks/useFetch";
 import { useMyRouter } from "@/hooks/useMyRouter";
 import { useParams } from "@/hooks/useParams";
 import { getAnimalsBySingleType, PETFINDER_URL } from "@/lib/api";
 import { icons } from "@/lib/icons";
-import { deslugify } from "@/lib/utils";
 import { useLocalSearchParams } from "expo-router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
 
 const TypeResults = () => {
     const { type } = useLocalSearchParams();
 
-    const { onPress } = useMyRouter();
-
-    const { gender, coat, color } = useParams(
+    const { gender, coat, color, animalType } = useParams(
         `${PETFINDER_URL}/animals?type=${type}`
     );
 
-    const {
-        data: animals,
-        loading,
-        error,
-    } = useFetch(() => getAnimalsBySingleType(type as string));
+    const [friends, setFriends] = useState<Friend[]>([]);
 
-    const animalType = deslugify(`${(type as string).split("&")[0]}`);
+    const {
+        loading,
+        setLoading,
+        error,
+        setError,
+        totalPages,
+        setTotalPages,
+        page,
+        setPage,
+    } = useFetch(() => getAnimalsBySingleType(type as string, page));
+
+    const { NextPress, PrevPress, onPress } = useMyRouter();
+
+    const onNextPress = () => {
+        setPage(NextPress(page));
+    };
+
+    const onPrevPress = () => {
+        setPage(PrevPress(page));
+    };
+
+    useEffect(() => {
+        const fetchFriends = async () => {
+            setLoading(true);
+            try {
+                await getAnimalsBySingleType(type as string, page).then(
+                    (data) => {
+                        setFriends(data.animals);
+                        setPage(data.pagination.current_page);
+                        setTotalPages(data.pagination.total_pages);
+                    }
+                );
+            } catch (e) {
+                console.log(e);
+                setError(e as Error);
+                throw e;
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchFriends();
+    }, [page]);
 
     return (
         <View className="flex-1 bg-light-100 p-4 pt-20">
@@ -64,9 +98,9 @@ const TypeResults = () => {
                 </Text>
             )}
 
-            {!loading && !error && animals && animals.length > 0 && (
+            {!loading && !error && friends && friends.length > 0 && (
                 <FlatList
-                    data={animals}
+                    data={friends}
                     renderItem={({ item }) => <FriendCard {...item} />}
                     keyExtractor={(item) => item.id.toString()}
                     numColumns={2}
@@ -78,7 +112,12 @@ const TypeResults = () => {
                     }}
                     className="mb-20"
                     ListFooterComponent={
-                        <PageButton text="Next Page" color="#114A04" />
+                        <PaginateBtns
+                            totalPages={totalPages}
+                            page={page}
+                            onNextPress={onNextPress}
+                            onPrevPress={onPrevPress}
+                        />
                     }
                 />
             )}

@@ -157,7 +157,10 @@ export const getSingleAnimalType = async (animalType: string) => {
 };
 
 // get animals by single type
-export const getAnimalsBySingleType = async (animalType: string) => {
+export const getAnimalsBySingleType = async (
+    animalType: string,
+    page: number = 1
+) => {
     try {
         accessKey = await fetchAccessKey(CLIENT_ID!, CLIENT_API_KEY!);
 
