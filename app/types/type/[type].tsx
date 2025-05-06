@@ -6,16 +6,13 @@ import { useMyRouter } from "@/hooks/useMyRouter";
 import { useParams } from "@/hooks/useParams";
 import { getAnimalsBySingleType, PETFINDER_URL } from "@/lib/api";
 import { icons } from "@/lib/icons";
+import { deslugify } from "@/lib/utils";
 import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
 
 const TypeResults = () => {
     const { type } = useLocalSearchParams();
-
-    const { gender, coat, color, animalType } = useParams(
-        `${PETFINDER_URL}/animals?type=${type}`
-    );
 
     const [friends, setFriends] = useState<Friend[]>([]);
 
@@ -29,6 +26,10 @@ const TypeResults = () => {
         page,
         setPage,
     } = useFetch(() => getAnimalsBySingleType(type as string, page));
+
+    const { gender, coat, color } = useParams(
+        `${PETFINDER_URL}/animals?type=${type}`
+    );
 
     const { NextPress, PrevPress, onPress } = useMyRouter();
 
@@ -61,6 +62,8 @@ const TypeResults = () => {
         };
         fetchFriends();
     }, [page]);
+
+    const animalType = deslugify((type as string).split("&")[0]);
 
     return (
         <View className="flex-1 bg-light-100 p-4 pt-20">

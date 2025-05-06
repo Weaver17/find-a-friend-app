@@ -33,7 +33,7 @@ const TypePage = () => {
             setLoading(true);
             try {
                 await getSingleAnimalType(type as string).then((data) => {
-                    setTypeDetails(data);
+                    setTypeDetails(data.type);
                 });
             } catch (e) {
                 console.log(e);
@@ -75,11 +75,14 @@ const TypePage = () => {
                     <Text className="text-center text-dark-200 text-6xl font-bold mb-6 mx-auto">
                         {typeDetails?.name}
                     </Text>
-                    <View className="bg-accent/90 p-4 rounded-lg my-2">
-                        <Text className="text-center text-dark-200 text-2xl font-bold">
-                            {scientificName}
-                        </Text>
-                    </View>
+                    {scientificName === "N/A" ? null : (
+                        <View className="bg-accent/90 p-4 rounded-lg my-2">
+                            <Text className="text-center text-dark-200 text-2xl font-bold">
+                                {scientificName}
+                            </Text>
+                        </View>
+                    )}
+
                     <ScrollView
                         showsVerticalScrollIndicator={false}
                         contentContainerStyle={{

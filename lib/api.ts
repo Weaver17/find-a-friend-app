@@ -151,7 +151,7 @@ export const getSingleAnimalType = async (animalType: string) => {
 
         const data = await res.json();
 
-        return data.type;
+        return data;
     } catch (e) {
         console.log(e);
         throw e;
@@ -161,7 +161,7 @@ export const getSingleAnimalType = async (animalType: string) => {
 // get animals by single type
 export const getAnimalsBySingleType = async (
     animalType: string,
-    page: number = 1
+    pageNum: number = 1
 ) => {
     try {
         accessKey = await fetchAccessKey(CLIENT_ID!, CLIENT_API_KEY!);
@@ -170,13 +170,16 @@ export const getAnimalsBySingleType = async (
             throw new Error("No access key");
         }
 
-        const res = await fetch(`${PETFINDER_URL}/animals?type=${animalType}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${accessKey}`,
-            },
-        });
+        const res = await fetch(
+            `${PETFINDER_URL}/animals?type=${animalType}&page=${pageNum}`,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessKey}`,
+                },
+            }
+        );
 
         if (!res.ok) {
             // @ts-ignore

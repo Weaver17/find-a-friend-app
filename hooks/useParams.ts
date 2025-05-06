@@ -4,7 +4,7 @@ export function useParams(url: string) {
     return useMemo(() => {
         try {
             const params = new URL(url).searchParams;
-            const allowedKeys = ["type", "gender", "coat", "color"];
+            const allowedKeys = ["type", "gender", "coat", "color", "page"];
             const extracted: Record<string, string> = {};
 
             for (const key of allowedKeys) {

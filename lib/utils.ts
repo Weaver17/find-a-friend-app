@@ -11,7 +11,7 @@ export function slugify(text: string) {
 
 export function deslugify(slug: string) {
     return slug
-        .replace(/-+/g, " ") // Replace one or more dashes with a space
+        .replace(/-+/g, ", ") // Replace one or more dashes with a space
         .trim(); // Clean leading/trailing spaces
 }
 

@@ -20,21 +20,22 @@ const PaginateBtns = ({
             <Text className="text-center text-dark-200 text-base font-semibold">
                 Page: {page}
             </Text>
-            {page === 1 && (
+            {totalPages === 1 && null}
+            {page === 1 && totalPages !== 1 && (
                 <PageButton
                     text="Next Page"
                     color="#114A04"
                     onPress={onNextPress}
                 />
             )}
-            {page === totalPages && (
+            {page === totalPages && totalPages !== 1 && (
                 <PageButton
                     text="Previous Page"
                     color="#114A04"
                     onPress={onPrevPress}
                 />
             )}
-            {page > 1 && page < totalPages && (
+            {page > 1 && page < totalPages && totalPages !== 1 && (
                 <View className="flex-row gap-6">
                     <PageButton
                         text="Previous Page"
