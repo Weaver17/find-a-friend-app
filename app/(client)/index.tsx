@@ -1,12 +1,55 @@
 import FriendCard from "@/components/FriendCard";
 import PageButton from "@/components/PageButton";
 import { useFetch } from "@/hooks/useFetch";
+import { useMyRouter } from "@/hooks/useMyRouter";
 import { getAllAnimals } from "@/lib/api";
 import { icons } from "@/lib/icons";
+import { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
 
 export default function Index() {
-    const { data: friends, loading, error } = useFetch(getAllAnimals);
+    const [friends, setFriends] = useState<Friend[]>([]);
+
+    const {
+        loading,
+        setLoading,
+        error,
+        setError,
+        totalPages,
+        setTotalPages,
+        page,
+        setPage,
+    } = useFetch(getAllAnimals);
+
+    const { NextPress, PrevPress } = useMyRouter();
+
+    const onNextPress = () => {
+        setPage(NextPress(page));
+    };
+
+    const onPrevPress = () => {
+        setPage(PrevPress(page));
+    };
+
+    useEffect(() => {
+        const fetchFriends = async () => {
+            setLoading(true);
+            try {
+                await getAllAnimals(page).then((data) => {
+                    setFriends(data.animals);
+                    setPage(data.pagination.current_page);
+                    setTotalPages(data.pagination.total_pages);
+                });
+            } catch (e) {
+                console.log(e);
+                setError(e as Error);
+                throw e;
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchFriends();
+    }, [page]);
 
     return (
         <View className="flex-1 bg-light-100 p-4">
@@ -57,12 +100,44 @@ export default function Index() {
                     }}
                     className="mb-20"
                     ListHeaderComponent={
-                        <Text className="text-center text-dark-200 text-4xl font-bold mb-6 mx-auto">
+                        <Text className="text-center text-dark-200 mb-6 mx-auto text-4xl font-bold">
                             Latest Potential Friends:
                         </Text>
                     }
                     ListFooterComponent={
-                        <PageButton text="Next Page" color="#114A04" />
+                        <View className="mx-auto gap-6">
+                            <Text className="text-center text-dark-200 text-base font-semibold">
+                                Page: {page}
+                            </Text>
+                            {page === 1 && (
+                                <PageButton
+                                    text="Next Page"
+                                    color="#114A04"
+                                    onPress={onNextPress}
+                                />
+                            )}
+                            {page === totalPages && (
+                                <PageButton
+                                    text="Previous Page"
+                                    color="#114A04"
+                                    onPress={onPrevPress}
+                                />
+                            )}
+                            {page > 1 && page < totalPages && (
+                                <View className="flex-row gap-6">
+                                    <PageButton
+                                        text="Previous Page"
+                                        color="#114A04"
+                                        onPress={onPrevPress}
+                                    />
+                                    <PageButton
+                                        text="Next Page"
+                                        color="#114A04"
+                                        onPress={onNextPress}
+                                    />
+                                </View>
+                            )}
+                        </View>
                     }
                 />
             )}

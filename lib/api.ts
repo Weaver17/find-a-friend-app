@@ -56,7 +56,7 @@ export const getAllAnimals = async (page: number = 1) => {
 
         const data = await res.json();
 
-        return data.animals;
+        return data;
     } catch (e) {
         console.log(e);
         throw e;
@@ -180,7 +180,7 @@ export const getAnimalsBySingleType = async (animalType: string) => {
 
         const data = await res.json();
 
-        return data.animals;
+        return data;
     } catch (e) {
         console.log(e);
         throw e;
