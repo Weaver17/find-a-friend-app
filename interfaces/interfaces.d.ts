@@ -106,8 +106,8 @@ interface Breeds {
 }
 
 interface Orginization {
-    id: string | null;
-    name: string | null;
+    id: string;
+    name: string;
     email: string | null;
     phone: string | null;
     address: {

@@ -41,6 +41,8 @@ export const getAllAnimals = async (page: number = 1) => {
             throw new Error("No access key");
         }
 
+        // console.log(accessKey);
+
         const res = await fetch(`${PETFINDER_URL}/animals?page=${page}`, {
             method: "GET",
             headers: {
@@ -95,7 +97,7 @@ export const getAnimalTypes = async () => {
 };
 
 // get all organizations
-export const getAllOrganizations = async () => {
+export const getAllOrganizations = async (page: number = 1) => {
     try {
         accessKey = await fetchAccessKey(CLIENT_ID!, CLIENT_API_KEY!);
 
@@ -103,7 +105,7 @@ export const getAllOrganizations = async () => {
             throw new Error("No access key");
         }
 
-        const res = await fetch(`${PETFINDER_URL}/organizations`, {
+        const res = await fetch(`${PETFINDER_URL}/organizations?page=${page}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -118,7 +120,7 @@ export const getAllOrganizations = async () => {
 
         const data = await res.json();
 
-        return data.organizations;
+        return data;
     } catch (e) {
         console.log(e);
         throw e;

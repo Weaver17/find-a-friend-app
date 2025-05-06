@@ -1,12 +1,55 @@
 import OrgCard from "@/components/OrgCard";
-import PageButton from "@/components/PageButton";
+import PaginateBtns from "@/components/PaginateBtns";
 import { useFetch } from "@/hooks/useFetch";
+import { useMyRouter } from "@/hooks/useMyRouter";
 import { getAllOrganizations } from "@/lib/api";
 import { icons } from "@/lib/icons";
+import { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
 
 const OrgsPage = () => {
-    const { data: orgs, loading, error } = useFetch(getAllOrganizations);
+    const [orgs, setOrgs] = useState<Orginization[]>([]);
+
+    const {
+        loading,
+        setLoading,
+        error,
+        setError,
+        totalPages,
+        setTotalPages,
+        page,
+        setPage,
+    } = useFetch(getAllOrganizations);
+
+    const { NextPress, PrevPress } = useMyRouter();
+
+    const onNextPress = () => {
+        setPage(NextPress(page));
+    };
+
+    const onPrevPress = () => {
+        setPage(PrevPress(page));
+    };
+
+    useEffect(() => {
+        const fetchFriends = async () => {
+            setLoading(true);
+            try {
+                await getAllOrganizations(page).then((data) => {
+                    setOrgs(data.organizations);
+                    setPage(data.pagination.current_page);
+                    setTotalPages(data.pagination.total_pages);
+                });
+            } catch (e) {
+                console.log(e);
+                setError(e as Error);
+                throw e;
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchFriends();
+    }, [page]);
 
     return (
         <View className="flex-1 bg-light-100 p-4">
@@ -46,7 +89,12 @@ const OrgsPage = () => {
                         paddingBottom: 80,
                     }}
                     ListFooterComponent={
-                        <PageButton text="Next Page" color="#114A04" />
+                        <PaginateBtns
+                            totalPages={totalPages}
+                            page={page}
+                            onNextPress={onNextPress}
+                            onPrevPress={onPrevPress}
+                        />
                     }
                 />
             )}

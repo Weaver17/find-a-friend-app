@@ -2,11 +2,31 @@ import BreedCard from "@/components/BreedCard";
 import { useFetch } from "@/hooks/useFetch";
 import { getAnimalTypes } from "@/lib/api";
 import { icons } from "@/lib/icons";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
 
 const AnimalsPage = () => {
-    const { data: types, loading, error } = useFetch(getAnimalTypes);
+    const [types, setTypes] = useState<AnimalType[]>([]);
+
+    const { loading, setLoading, error, setError } = useFetch(getAnimalTypes);
+
+    useEffect(() => {
+        const fetchFriends = async () => {
+            setLoading(true);
+            try {
+                await getAnimalTypes().then((data) => {
+                    setTypes(data);
+                });
+            } catch (e) {
+                console.log(e);
+                setError(e as Error);
+                throw e;
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchFriends();
+    }, []);
 
     return (
         <View className="flex-1 bg-light-100 p-4">

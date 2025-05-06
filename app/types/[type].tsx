@@ -7,7 +7,7 @@ import { getSingleAnimalType } from "@/lib/api";
 import { icons } from "@/lib/icons";
 import { getScientificName } from "@/lib/utils";
 import { Link, useLocalSearchParams } from "expo-router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     ActivityIndicator,
     Image,
@@ -20,15 +20,33 @@ import {
 const TypePage = () => {
     const { type } = useLocalSearchParams();
 
+    const [typeDetails, setTypeDetails] = useState<AnimalType>();
+
+    const { loading, setLoading, error, setError } = useFetch(() =>
+        getSingleAnimalType(type as string)
+    );
+
     const { onPress } = useMyRouter();
 
-    const {
-        data: animalType,
-        loading,
-        error,
-    } = useFetch(() => getSingleAnimalType(type as string));
+    useEffect(() => {
+        const fetchFriends = async () => {
+            setLoading(true);
+            try {
+                await getSingleAnimalType(type as string).then((data) => {
+                    setTypeDetails(data);
+                });
+            } catch (e) {
+                console.log(e);
+                setError(e as Error);
+                throw e;
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchFriends();
+    }, []);
 
-    const scientificName = getScientificName(animalType?.name);
+    const scientificName = getScientificName(typeDetails?.name ?? "N/A");
 
     return (
         <View className="flex-1 bg-light-100 p-4 pt-20">
@@ -55,7 +73,7 @@ const TypePage = () => {
             {!loading && !error && type && (
                 <>
                     <Text className="text-center text-dark-200 text-6xl font-bold mb-6 mx-auto">
-                        {animalType?.name}
+                        {typeDetails?.name}
                     </Text>
                     <View className="bg-accent/90 p-4 rounded-lg my-2">
                         <Text className="text-center text-dark-200 text-2xl font-bold">
@@ -104,13 +122,13 @@ const TypePage = () => {
                             </Link>
                         </View>
 
-                        {animalType?.coats.length > 0 && (
+                        {typeDetails && typeDetails?.coats.length > 0 && (
                             <View>
                                 <Text className="text-center text-dark-100 text-3xl font-bold my-4 mx-auto">
                                     Coats
                                 </Text>
                                 <View className="flex-row flex-wrap justify-center mx-auto w-full gap-4">
-                                    {animalType?.coats.map((coat: string) => (
+                                    {typeDetails?.coats.map((coat: string) => (
                                         <CoatCard
                                             key={coat}
                                             type={type}
@@ -126,7 +144,7 @@ const TypePage = () => {
                                 Colors
                             </Text>
                             <View className="flex-row flex-wrap justify-center mx-auto w-full gap-2">
-                                {animalType?.colors.map((color: string) => (
+                                {typeDetails?.colors.map((color: string) => (
                                     <ColorCard
                                         key={color}
                                         type={type}
