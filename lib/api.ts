@@ -89,7 +89,7 @@ export const getAnimalTypes = async () => {
 
         const data = await res.json();
 
-        return data.types;
+        return data;
     } catch (e) {
         console.log(e);
         throw e;
@@ -184,6 +184,79 @@ export const getAnimalsBySingleType = async (
         if (!res.ok) {
             // @ts-ignore
             throw new Error("Failed to fetch animals by type", res.statusText);
+        }
+
+        const data = await res.json();
+
+        return data;
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+};
+
+// get animal type all breeds
+export const getAnimalTypeBreeds = async (animalType: string) => {
+    try {
+        accessKey = await fetchAccessKey(CLIENT_ID!, CLIENT_API_KEY!);
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const res = await fetch(`${PETFINDER_URL}/types/${animalType}/breeds`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessKey}`,
+            },
+        });
+
+        if (!res.ok) {
+            // @ts-ignore
+            throw new Error(
+                "Failed to fetch all breeds by type",
+                // @ts-ignore
+                res.statusText
+            );
+        }
+
+        const data = await res.json();
+
+        return data.breeds;
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+};
+
+// get specific animal type breed
+export const getSpecificAnimalTypeBreed = async (
+    animalType: string,
+    breed: string,
+    page: number = 1
+) => {
+    try {
+        accessKey = await fetchAccessKey(CLIENT_ID!, CLIENT_API_KEY!);
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const res = await fetch(
+            `${PETFINDER_URL}/animals?type=${animalType}&breed=${breed}&page=${page}`,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessKey}`,
+                },
+            }
+        );
+
+        if (!res.ok) {
+            // @ts-ignore
+            throw new Error("Failed to fetch 1 breed by type", res.statusText);
         }
 
         const data = await res.json();

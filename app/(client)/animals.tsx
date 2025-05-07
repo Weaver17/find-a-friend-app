@@ -15,7 +15,7 @@ const AnimalsPage = () => {
             setLoading(true);
             try {
                 await getAnimalTypes().then((data) => {
-                    setTypes(data);
+                    setTypes(data.types);
                 });
             } catch (e) {
                 console.log(e);

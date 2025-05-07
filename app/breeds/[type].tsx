@@ -1,21 +1,30 @@
-import BreedCard from "@/components/BreedCard";
+import BackButton from "@/components/BackButton";
+import BreedsCard from "@/components/subcards/BreedsCard";
 import { useFetch } from "@/hooks/useFetch";
-import { getAnimalTypes } from "@/lib/api";
+import { useMyRouter } from "@/hooks/useMyRouter";
+import { getAnimalTypeBreeds } from "@/lib/api";
 import { icons } from "@/lib/icons";
+import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
 
-const AnimalsPage = () => {
-    const [types, setTypes] = useState<AnimalType[]>([]);
+const BreedsPage = () => {
+    const { type } = useLocalSearchParams();
 
-    const { loading, setLoading, error, setError } = useFetch(getAnimalTypes);
+    const [breeds, setBreeds] = useState<Breeds[]>([]);
+
+    const { loading, setLoading, error, setError } = useFetch(() =>
+        getAnimalTypeBreeds(type as string)
+    );
+
+    const { onPress } = useMyRouter();
 
     useEffect(() => {
         const fetchFriends = async () => {
             setLoading(true);
             try {
-                await getAnimalTypes().then((data) => {
-                    setTypes(data.types);
+                await getAnimalTypeBreeds(type as string).then((data) => {
+                    setBreeds(data);
                 });
             } catch (e) {
                 console.log(e);
@@ -36,9 +45,11 @@ const AnimalsPage = () => {
                 className="absolute w-full h-full left-[50%] top-[50%] -translate-x-[46.5%] -translate-y-[50%] z-0"
             />
 
-            <Text className="text-center text-dark-200 text-4xl font-bold my-6 mx-auto">
-                Animal Breeds
+            <Text className="text-center text-dark-200 text-4xl font-bold mt-16 mb-4 mx-auto uppercase">
+                Breeds for {type}s
             </Text>
+
+            {/* SEARCH BAR OR FILTER OPTIONS NEEDED */}
 
             {loading && (
                 <ActivityIndicator
@@ -54,21 +65,25 @@ const AnimalsPage = () => {
                 </Text>
             )}
 
-            {!loading && !error && types && types.length > 0 && (
+            {!loading && !error && breeds && breeds.length > 0 && (
                 <FlatList
-                    data={types}
-                    renderItem={({ item }) => <BreedCard name={item.name} />}
+                    data={breeds}
+                    renderItem={({ item }) => (
+                        <BreedsCard type={type as string} name={item.name} />
+                    )}
                     keyExtractor={(item) => item.name}
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{
                         justifyContent: "center",
                         gap: 6,
-                        marginBottom: 10,
+                        paddingBottom: 80,
                     }}
+                    className="mb-18"
                 />
             )}
+            <BackButton onPress={onPress} />
         </View>
     );
 };
 
-export default AnimalsPage;
+export default BreedsPage;

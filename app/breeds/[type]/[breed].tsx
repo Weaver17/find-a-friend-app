@@ -1,22 +1,18 @@
+import BackButton from "@/components/BackButton";
 import FriendCard from "@/components/FriendCard";
 import PaginateBtns from "@/components/PaginateBtns";
 import { useFetch } from "@/hooks/useFetch";
 import { useMyRouter } from "@/hooks/useMyRouter";
-import { getAllAnimals } from "@/lib/api";
+import { getSpecificAnimalTypeBreed } from "@/lib/api";
 import { icons } from "@/lib/icons";
-import { useEffect, useState } from "react";
+import { useLocalSearchParams } from "expo-router";
+import React, { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
 
-export default function Index() {
-    const [friends, setFriends] = useState<Friend[]>([]);
+const BreedPage = () => {
+    const { type, breed } = useLocalSearchParams();
 
-    // TODO:
-    // FIX "FETCHFRIENDS" ON EACH PAGE FOR CLARIFICATON
-    // ADD LOGIC FOR WHEN NO RESULTS ARE FOUND
-    // INTRO TEXT
-    // FRIEND PAGE
-    // ORG PAGE
-    // SEPERATE LOGIC FOR THE BREEDLESS ANIMALS
+    const [friends, setFriends] = useState<Friend[]>([]);
 
     const {
         loading,
@@ -27,9 +23,11 @@ export default function Index() {
         setTotalPages,
         page,
         setPage,
-    } = useFetch(getAllAnimals);
+    } = useFetch(() =>
+        getSpecificAnimalTypeBreed(type as string, breed as string, page)
+    );
 
-    const { NextPress, PrevPress } = useMyRouter();
+    const { NextPress, PrevPress, onPress } = useMyRouter();
 
     const onNextPress = () => {
         setPage(NextPress(page));
@@ -43,7 +41,11 @@ export default function Index() {
         const fetchFriends = async () => {
             setLoading(true);
             try {
-                await getAllAnimals(page).then((data) => {
+                await getSpecificAnimalTypeBreed(
+                    type as string,
+                    breed as string,
+                    page
+                ).then((data) => {
                     setFriends(data.animals);
                     setPage(data.pagination.current_page);
                     setTotalPages(data.pagination.total_pages);
@@ -66,19 +68,9 @@ export default function Index() {
                 resizeMode="contain"
                 className="absolute w-full h-full left-[50%] top-[50%] -translate-x-[46.5%] -translate-y-[50%] z-0"
             />
-
-            <View className="bg-accent/90 p-4 rounded-lg gap-y-4 my-4">
-                <Text className="text-center text-dark-200 text-2xl font-bold">
-                    Welcome To The App That Helps You Find The Friend You Are
-                    Looking For!
-                </Text>
-                <Text className="text-center text-dark-200 text-base">
-                    Regular intro text about what this app is all about. Regular
-                    intro text about what this app is all about. Regular intro
-                    text about what this app is all about. Regular intro text
-                    about what this app is all about.
-                </Text>
-            </View>
+            <Text className="text-center text-dark-200 mt-16 mb-4 mx-auto text-4xl font-bold uppercase">
+                {type}: {breed}
+            </Text>
 
             {loading && (
                 <ActivityIndicator
@@ -106,12 +98,7 @@ export default function Index() {
                         gap: 5,
                         marginBottom: 10,
                     }}
-                    className="mb-20"
-                    ListHeaderComponent={
-                        <Text className="text-center text-dark-200 mb-6 mx-auto text-4xl font-bold">
-                            Latest Potential Friends:
-                        </Text>
-                    }
+                    className="mb-[66px]"
                     ListFooterComponent={
                         <PaginateBtns
                             totalPages={totalPages}
@@ -122,6 +109,9 @@ export default function Index() {
                     }
                 />
             )}
+            <BackButton onPress={onPress} />
         </View>
     );
-}
+};
+
+export default BreedPage;
