@@ -159,3 +159,13 @@ interface SocialMedia {
     instagram: string | null;
     pinterest: string | null;
 }
+
+interface Hours {
+    monday: string | null;
+    tuesday: string | null;
+    wednesday: string | null;
+    thursday: string | null;
+    friday: string | null;
+    saturday: string | null;
+    sunday: string | null;
+}

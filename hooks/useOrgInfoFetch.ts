@@ -1,7 +1,7 @@
-import { getSocialMediaIconsAndLinks } from "@/lib/utils";
+import { checkHours, getSocialMediaIconsAndLinks } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
-export function useSocialIconFetch(socialMedias: SocialMedia) {
+export function useOrgInfoFetch(org: Orginization | null) {
     const [facebookIcon, setFacebookIcon] = useState(null);
     const [twitterIcon, setTwitterIcon] = useState(null);
     const [instagramIcon, setInstagramIcon] = useState(null);
@@ -13,10 +13,21 @@ export function useSocialIconFetch(socialMedias: SocialMedia) {
     const [instagramLink, setInstagramLink] = useState<string | null>(null);
     const [youtubeLink, setYoutubeLink] = useState<string | null>(null);
     const [pinterestLink, setPinterestLink] = useState<string | null>(null);
+    const [hours, setHours] = useState<{
+        mondayHours: string;
+        tuesdayHours: string;
+        wednesdayHours: string;
+        thursdayHours: string;
+        fridayHours: string;
+        saturdayHours: string;
+        sundayHours: string;
+    } | null>(null);
 
     useEffect(() => {
         const fetchSocialIcons = async () => {
-            await getSocialMediaIconsAndLinks(socialMedias).then((data) => {
+            await getSocialMediaIconsAndLinks(
+                org?.social_media as SocialMedia
+            ).then((data) => {
                 setFacebookIcon(data.icons[0]);
                 setInstagramIcon(data.icons[1]);
                 setPinterestIcon(data.icons[2]);
@@ -32,6 +43,17 @@ export function useSocialIconFetch(socialMedias: SocialMedia) {
         fetchSocialIcons();
     });
 
+    useEffect(() => {
+        const fetchHours = async () => {
+            if (org?.hours) {
+                const result = await checkHours(org.hours as Hours);
+                setHours(result);
+            }
+        };
+
+        fetchHours();
+    }, [org]);
+
     return {
         facebookIcon,
         twitterIcon,
@@ -43,5 +65,6 @@ export function useSocialIconFetch(socialMedias: SocialMedia) {
         instagramLink,
         youtubeLink,
         pinterestLink,
+        hours,
     };
 }

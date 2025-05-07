@@ -41,7 +41,7 @@ export const getAllAnimals = async (page: number = 1) => {
             throw new Error("No access key");
         }
 
-        // console.log(accessKey);
+        console.log(accessKey);
 
         const res = await fetch(`${PETFINDER_URL}/animals?page=${page}`, {
             method: "GET",

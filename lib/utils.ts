@@ -217,23 +217,64 @@ export const getWebsiteLink = async (url: string) => {
     }
 };
 
-// export const getSocialMediaLinksStrings = async (socialMedias: SocialMedia) => {
-//     try {
-//         const facebookLink = socialMedias.facebook ?? null;
-//         const twitterLink = socialMedias.twitter ?? null;
-//         const instagramLink = socialMedias.instagram ?? null;
-//         const youtubeLink = socialMedias.youtube ?? null;
-//         const pinterestLink = socialMedias.pinterest ?? null;
+export const openWebsite = async (url: string) => {
+    try {
+        if (!url) return;
 
-//         return {
-//             facebookLink,
-//             twitterLink,
-//             instagramLink,
-//             youtubeLink,
-//             pinterestLink,
-//         };
-//     } catch (e) {
-//         console.log(e);
-//         throw e;
-//     }
-// };
+        const supported = await Linking.canOpenURL(url);
+
+        if (!supported) {
+            console.log("Don't know how to open URI: " + url);
+            return;
+        }
+
+        await Linking.openURL(url);
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+};
+
+export const openPetFinderLink = async (url: string) => {
+    try {
+        if (!url) return;
+
+        const supported = await Linking.canOpenURL(url);
+
+        if (!supported) {
+            console.log("Don't know how to open URI: " + url);
+            return;
+        }
+
+        await Linking.openURL(url);
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+};
+
+export const checkHours = async (hours: Hours) => {
+    try {
+        const mondayHours = hours.monday !== null ? hours.monday : "N/A";
+        const tuesdayHours = hours.tuesday !== null ? hours.tuesday : "N/A";
+        const wednesdayHours =
+            hours.wednesday !== null ? hours.wednesday : "N/A";
+        const thursdayHours = hours.thursday !== null ? hours.thursday : "N/A";
+        const fridayHours = hours.friday !== null ? hours.friday : "N/A";
+        const saturdayHours = hours.saturday !== null ? hours.saturday : "N/A";
+        const sundayHours = hours.sunday !== null ? hours.sunday : "N/A";
+
+        return {
+            mondayHours,
+            tuesdayHours,
+            wednesdayHours,
+            thursdayHours,
+            fridayHours,
+            saturdayHours,
+            sundayHours,
+        } as const;
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+};

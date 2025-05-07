@@ -18,7 +18,6 @@ export default function RootLayout() {
                 name="breeds/[type]/[breed]"
                 options={{ headerShown: false }}
             />
-            <Stack.Screen name="orgs/[org]" options={{ headerShown: false }} />
             <Stack.Screen
                 name="types/[type]"
                 options={{ headerShown: false }}
