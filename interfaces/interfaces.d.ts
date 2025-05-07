@@ -151,3 +151,11 @@ interface Orginization {
         | null;
     distance: number | null;
 }
+
+interface SocialMedia {
+    facebook: string | null;
+    twitter: string | null;
+    youtube: string | null;
+    instagram: string | null;
+    pinterest: string | null;
+}

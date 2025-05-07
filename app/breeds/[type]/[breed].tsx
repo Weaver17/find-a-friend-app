@@ -5,6 +5,7 @@ import { useFetch } from "@/hooks/useFetch";
 import { useMyRouter } from "@/hooks/useMyRouter";
 import { getSpecificAnimalTypeBreed } from "@/lib/api";
 import { icons } from "@/lib/icons";
+import { deslugify } from "@/lib/utils";
 import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
@@ -13,6 +14,8 @@ const BreedPage = () => {
     const { type, breed } = useLocalSearchParams();
 
     const [friends, setFriends] = useState<Friend[]>([]);
+
+    const typeTitle = deslugify(type as string);
 
     const {
         loading,
@@ -69,7 +72,7 @@ const BreedPage = () => {
                 className="absolute w-full h-full left-[50%] top-[50%] -translate-x-[46.5%] -translate-y-[50%] z-0"
             />
             <Text className="text-center text-dark-200 mt-16 mb-4 mx-auto text-4xl font-bold uppercase">
-                {type}: {breed}
+                {typeTitle}: {breed}
             </Text>
 
             {loading && (

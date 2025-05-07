@@ -1,3 +1,4 @@
+import { Linking } from "react-native";
 import { darkIcons } from "./dark-icons";
 import { icons } from "./icons";
 import { whiteIcons } from "./white-icons";
@@ -155,3 +156,84 @@ export const getScientificName = (animalType: string) => {
 
     return scientificName;
 };
+
+export const getSocialMediaIconsAndLinks = async (
+    socialMedias: SocialMedia
+) => {
+    try {
+        const facebookIcon = socialMedias.facebook ? icons.facebook : null;
+        const instagramIcon = socialMedias.instagram ? icons.instagram : null;
+        const pinteristIcon = socialMedias.pinterest ? icons.pinterest : null;
+        const twitterIcon = socialMedias.twitter ? icons.twitter : null;
+        const youtubeIcon = socialMedias.youtube ? icons.youtube : null;
+
+        const facebookLink = socialMedias.facebook ?? null;
+        const twitterLink = socialMedias.twitter ?? null;
+        const instagramLink = socialMedias.instagram ?? null;
+        const youtubeLink = socialMedias.youtube ?? null;
+        const pinterestLink = socialMedias.pinterest ?? null;
+
+        return {
+            icons: [
+                facebookIcon,
+                instagramIcon,
+                pinteristIcon,
+                twitterIcon,
+                youtubeIcon,
+            ],
+            links: [
+                facebookLink,
+                twitterLink,
+                instagramLink,
+                youtubeLink,
+                pinterestLink,
+            ],
+        };
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+};
+
+export const getWebsiteLink = async (url: string) => {
+    try {
+        if (!url) return;
+
+        try {
+            const supported = await Linking.canOpenURL(url);
+            if (supported) {
+                Linking.openURL(url);
+            } else {
+                console.warn(`Don't know how to open URL: ${url}`);
+            }
+
+            await Linking.openURL(url);
+        } catch (e) {
+            console.warn(`Failed to open ${url}`, e);
+        }
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+};
+
+// export const getSocialMediaLinksStrings = async (socialMedias: SocialMedia) => {
+//     try {
+//         const facebookLink = socialMedias.facebook ?? null;
+//         const twitterLink = socialMedias.twitter ?? null;
+//         const instagramLink = socialMedias.instagram ?? null;
+//         const youtubeLink = socialMedias.youtube ?? null;
+//         const pinterestLink = socialMedias.pinterest ?? null;
+
+//         return {
+//             facebookLink,
+//             twitterLink,
+//             instagramLink,
+//             youtubeLink,
+//             pinterestLink,
+//         };
+//     } catch (e) {
+//         console.log(e);
+//         throw e;
+//     }
+// };

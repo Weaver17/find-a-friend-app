@@ -127,6 +127,37 @@ export const getAllOrganizations = async (page: number = 1) => {
     }
 };
 
+// get single org
+export const getSingleOrg = async (orgId: string) => {
+    try {
+        accessKey = await fetchAccessKey(CLIENT_ID!, CLIENT_API_KEY!);
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const res = await fetch(`${PETFINDER_URL}/organizations/${orgId}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessKey}`,
+            },
+        });
+
+        if (!res.ok) {
+            // @ts-ignore
+            throw new Error("Failed to fetch all orgs", res.statusText);
+        }
+
+        const data = await res.json();
+
+        return data.organization;
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+};
+
 // get single animal type
 export const getSingleAnimalType = async (animalType: string) => {
     try {

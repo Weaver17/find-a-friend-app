@@ -17,6 +17,7 @@ export default function Index() {
     // FRIEND PAGE
     // ORG PAGE
     // SEPERATE LOGIC FOR THE BREEDLESS ANIMALS
+    // CONSOLIDATE ICONS
 
     const {
         loading,

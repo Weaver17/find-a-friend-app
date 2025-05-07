@@ -80,7 +80,9 @@ const OrgsPage = () => {
             {!loading && !error && orgs && orgs.length > 0 && (
                 <FlatList
                     data={orgs}
-                    renderItem={({ item }) => <OrgCard name={item.name} />}
+                    renderItem={({ item }) => (
+                        <OrgCard id={item.id} name={item.name} />
+                    )}
                     keyExtractor={(item) => item.name}
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{
