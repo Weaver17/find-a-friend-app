@@ -195,7 +195,7 @@ export const getSocialMediaIconsAndLinks = async (
     }
 };
 
-export const getWebsiteLink = async (url: string) => {
+export const openWebsiteLink = async (url: string) => {
     try {
         if (!url) return;
 
@@ -211,42 +211,6 @@ export const getWebsiteLink = async (url: string) => {
         } catch (e) {
             console.warn(`Failed to open ${url}`, e);
         }
-    } catch (e) {
-        console.log(e);
-        throw e;
-    }
-};
-
-export const openWebsite = async (url: string) => {
-    try {
-        if (!url) return;
-
-        const supported = await Linking.canOpenURL(url);
-
-        if (!supported) {
-            console.log("Don't know how to open URI: " + url);
-            return;
-        }
-
-        await Linking.openURL(url);
-    } catch (e) {
-        console.log(e);
-        throw e;
-    }
-};
-
-export const openPetFinderLink = async (url: string) => {
-    try {
-        if (!url) return;
-
-        const supported = await Linking.canOpenURL(url);
-
-        if (!supported) {
-            console.log("Don't know how to open URI: " + url);
-            return;
-        }
-
-        await Linking.openURL(url);
     } catch (e) {
         console.log(e);
         throw e;

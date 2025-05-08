@@ -15,7 +15,6 @@ export default function Index() {
     // ADD LOGIC FOR WHEN NO RESULTS ARE FOUND
     // INTRO TEXT
     // FRIEND PAGE
-    // ORG PAGE
     // CONSOLIDATE ICONS
 
     const {

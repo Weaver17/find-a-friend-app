@@ -158,6 +158,43 @@ export const getSingleOrg = async (orgId: string) => {
     }
 };
 
+// get animals from single org
+export const getAnimalsFromSingleOrg = async (
+    orgId: string,
+    page: number = 1
+) => {
+    try {
+        accessKey = await fetchAccessKey(CLIENT_ID!, CLIENT_API_KEY!);
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const res = await fetch(
+            `${PETFINDER_URL}/animals?organization=${orgId}&page=${page}`,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessKey}`,
+                },
+            }
+        );
+
+        if (!res.ok) {
+            // @ts-ignore
+            throw new Error("Failed to fetch animal type", res.statusText);
+        }
+
+        const data = await res.json();
+
+        return data;
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+};
+
 // get single animal type
 export const getSingleAnimalType = async (animalType: string) => {
     try {
