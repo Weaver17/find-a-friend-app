@@ -41,7 +41,7 @@ export const getAllAnimals = async (page: number = 1) => {
             throw new Error("No access key");
         }
 
-        console.log(accessKey);
+        // console.log(accessKey);
 
         const res = await fetch(`${PETFINDER_URL}/animals?page=${page}`, {
             method: "GET",
@@ -330,6 +330,37 @@ export const getSpecificAnimalTypeBreed = async (
         const data = await res.json();
 
         return data;
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+};
+
+// get single animal
+export const getAnimalById = async (animalId: string) => {
+    try {
+        accessKey = await fetchAccessKey(CLIENT_ID!, CLIENT_API_KEY!);
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const res = await fetch(`${PETFINDER_URL}/animals/${animalId}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessKey}`,
+            },
+        });
+
+        if (!res.ok) {
+            // @ts-ignore
+            throw new Error("Failed to fetch animal type", res.statusText);
+        }
+
+        const data = await res.json();
+
+        return data.animal;
     } catch (e) {
         console.log(e);
         throw e;

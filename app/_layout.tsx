@@ -7,7 +7,7 @@ export default function RootLayout() {
         <Stack>
             <Stack.Screen name="(client)" options={{ headerShown: false }} />
             <Stack.Screen
-                name="animals/[id]"
+                name="animals/animal/[id]"
                 options={{ headerShown: false }}
             />
             <Stack.Screen

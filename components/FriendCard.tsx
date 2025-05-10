@@ -18,7 +18,7 @@ const FriendCard = ({
     const typeIcon = getAnimalTypeIcon(type ?? "");
 
     return (
-        <Link href={`/animals/${id.toString()}`} asChild>
+        <Link href={`/animals/animal/${id.toString()}`} asChild>
             <TouchableOpacity className="bg-primary w-[190px] h-[220px] border-secondary border-2 rounded-lg overflow-hidden relative">
                 {photos && photos.length > 0 ? (
                     <Image
