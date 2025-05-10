@@ -1,7 +1,5 @@
 import { Linking } from "react-native";
-import { darkIcons } from "./dark-icons";
 import { icons } from "./icons";
-import { whiteIcons } from "./white-icons";
 
 export function slugify(text: string) {
     return text
@@ -71,28 +69,28 @@ export const getWhiteTypeIcon = (animalType: string) => {
 
     switch (animalType) {
         case "Dog":
-            icon = whiteIcons.white_dog;
+            icon = icons.white_dog;
             break;
         case "Cat":
-            icon = whiteIcons.white_cat;
+            icon = icons.white_cat;
             break;
         case "Bird":
-            icon = whiteIcons.white_bird;
+            icon = icons.white_bird;
             break;
         case "Rabbit":
-            icon = whiteIcons.white_rabbit;
+            icon = icons.white_rabbit;
             break;
         case "Horse":
-            icon = whiteIcons.white_horse;
+            icon = icons.white_horse;
             break;
         case "Small & Furry":
-            icon = whiteIcons.white_fuzzy;
+            icon = icons.white_fuzzy;
             break;
         case "Barnyard":
-            icon = whiteIcons.white_barn;
+            icon = icons.white_barn;
             break;
         case "Scales, Fins & Other":
-            icon = whiteIcons.white_scaley;
+            icon = icons.white_scaley;
             break;
     }
 
@@ -104,28 +102,28 @@ export const getDarkTypeIcon = (animalType: string) => {
 
     switch (animalType) {
         case "Dog":
-            icon = darkIcons.dark_dog;
+            icon = icons.dark_dog;
             break;
         case "Cat":
-            icon = darkIcons.dark_cat;
+            icon = icons.dark_cat;
             break;
         case "Bird":
-            icon = darkIcons.dark_bird;
+            icon = icons.dark_bird;
             break;
         case "Rabbit":
-            icon = darkIcons.dark_rabbit;
+            icon = icons.dark_rabbit;
             break;
         case "Horse":
-            icon = darkIcons.dark_horse;
+            icon = icons.dark_horse;
             break;
         case "Small & Furry":
-            icon = darkIcons.dark_fuzzy;
+            icon = icons.dark_fuzzy;
             break;
         case "Barnyard":
-            icon = darkIcons.dark_barn;
+            icon = icons.dark_barn;
             break;
         case "Scales, Fins & Other":
-            icon = darkIcons.dark_scaley;
+            icon = icons.dark_scaley;
             break;
     }
 

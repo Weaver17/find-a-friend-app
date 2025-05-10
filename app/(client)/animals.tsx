@@ -11,7 +11,7 @@ const AnimalsPage = () => {
     const { loading, setLoading, error, setError } = useFetch(getAnimalTypes);
 
     useEffect(() => {
-        const fetchFriends = async () => {
+        const fetchTypes = async () => {
             setLoading(true);
             try {
                 await getAnimalTypes().then((data) => {
@@ -25,7 +25,7 @@ const AnimalsPage = () => {
                 setLoading(false);
             }
         };
-        fetchFriends();
+        fetchTypes();
     }, []);
 
     return (

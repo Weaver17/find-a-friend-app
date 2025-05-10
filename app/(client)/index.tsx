@@ -4,6 +4,7 @@ import { useFetch } from "@/hooks/useFetch";
 import { useMyRouter } from "@/hooks/useMyRouter";
 import { getAllAnimals } from "@/lib/api";
 import { icons } from "@/lib/icons";
+import { Link } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
 
@@ -11,11 +12,8 @@ export default function Index() {
     const [friends, setFriends] = useState<Friend[]>([]);
 
     // TODO:
-    // FIX "FETCHFRIENDS" ON EACH PAGE FOR CLARIFICATON
     // ADD LOGIC FOR WHEN NO RESULTS ARE FOUND
-    // INTRO TEXT
-    // FRIEND PAGE
-    // CONSOLIDATE ICONS
+    // FRIEND PAGE BREED TEXT
 
     const {
         loading,
@@ -72,10 +70,17 @@ export default function Index() {
                     Looking For!
                 </Text>
                 <Text className="text-center text-dark-200 text-base">
-                    Regular intro text about what this app is all about. Regular
-                    intro text about what this app is all about. Regular intro
-                    text about what this app is all about. Regular intro text
-                    about what this app is all about.
+                    Search hundreds of adoptable pets! From Dogs, Cats and
+                    Bunnies to Lizards or Goats! You can view our latest friends
+                    below or narrow down your search in the navigation bar
+                    below. All friends provided by{" "}
+                    <Link
+                        className="text-center text-dark-200 text-base underline"
+                        href="https://www.petfinder.com"
+                    >
+                        www.Petfinder.com
+                    </Link>
+                    .
                 </Text>
             </View>
 

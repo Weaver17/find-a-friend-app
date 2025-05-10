@@ -29,7 +29,7 @@ const TypePage = () => {
     const { onPress } = useMyRouter();
 
     useEffect(() => {
-        const fetchFriends = async () => {
+        const fetchTypeDetails = async () => {
             setLoading(true);
             try {
                 await getSingleAnimalType(type as string).then((data) => {
@@ -43,7 +43,7 @@ const TypePage = () => {
                 setLoading(false);
             }
         };
-        fetchFriends();
+        fetchTypeDetails();
     }, []);
 
     const scientificName = getScientificName(typeDetails?.name ?? "N/A");

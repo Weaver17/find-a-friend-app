@@ -33,7 +33,7 @@ const OrgPage = () => {
     const { onPress } = useMyRouter();
 
     useEffect(() => {
-        const fetchFriends = async () => {
+        const fetchOrg = async () => {
             setLoading(true);
             try {
                 await getSingleOrg(id as string).then((data) => {
@@ -48,7 +48,7 @@ const OrgPage = () => {
             }
         };
 
-        fetchFriends();
+        fetchOrg();
     }, []);
 
     return (

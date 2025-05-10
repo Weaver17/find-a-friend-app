@@ -20,7 +20,7 @@ const BreedsPage = () => {
     const { onPress } = useMyRouter();
 
     useEffect(() => {
-        const fetchFriends = async () => {
+        const fetchBreeds = async () => {
             setLoading(true);
             try {
                 await getAnimalTypeBreeds(type as string).then((data) => {
@@ -34,7 +34,7 @@ const BreedsPage = () => {
                 setLoading(false);
             }
         };
-        fetchFriends();
+        fetchBreeds();
     }, []);
 
     return (

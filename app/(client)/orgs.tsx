@@ -32,7 +32,7 @@ const OrgsPage = () => {
     };
 
     useEffect(() => {
-        const fetchFriends = async () => {
+        const fetchOrgs = async () => {
             setLoading(true);
             try {
                 await getAllOrganizations(page).then((data) => {
@@ -48,7 +48,7 @@ const OrgsPage = () => {
                 setLoading(false);
             }
         };
-        fetchFriends();
+        fetchOrgs();
     }, [page]);
 
     return (
