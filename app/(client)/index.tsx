@@ -12,8 +12,7 @@ export default function Index() {
     const [friends, setFriends] = useState<Friend[]>([]);
 
     // TODO:
-    // ADD LOGIC FOR WHEN NO RESULTS ARE FOUND
-    // FRIEND PAGE BREED TEXT
+    // NEW BG
 
     const {
         loading,

@@ -1,5 +1,6 @@
 import BackButton from "@/components/BackButton";
 import FriendCard from "@/components/FriendCard";
+import NoFriendsFound from "@/components/NoFriendsFound";
 import PaginateBtns from "@/components/PaginateBtns";
 import { useFetch } from "@/hooks/useFetch";
 import { useMyRouter } from "@/hooks/useMyRouter";
@@ -87,6 +88,10 @@ const BreedPage = () => {
                 <Text className="text-red-500 px-5 my-3">
                     Error: {error.message}
                 </Text>
+            )}
+
+            {!loading && !error && friends && friends.length === 0 && (
+                <NoFriendsFound />
             )}
 
             {!loading && !error && friends && friends.length > 0 && (

@@ -4,7 +4,7 @@ import { Text, View } from "react-native";
 const FriendGenInfo = (friend: Friend) => {
     return (
         <View className="flex items-center gap-4 my-2">
-            <View className="flex-row justify-center bg-accent/90  px-2 py-4 w-full rounded-xl">
+            <View className="flex-row flex-wrap justify-center bg-accent/90  px-2 py-4 w-full rounded-xl">
                 {friend?.breeds?.unknown === true ? <Text>Unknown</Text> : null}
 
                 {friend?.breeds?.mixed === true ? (
