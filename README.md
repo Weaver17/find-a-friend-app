@@ -1,50 +1,29 @@
-# Welcome to your Expo app 👋
+# Find-A-Friend
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Find your next friend by browsing hundreds of animals looking for a forever home! Dogs, Cats, Horses, Rabbits, and even Snakes or Pigs! Whatever kind of friend you need, you can find them here
 
-## Get started
+## API
 
-1. Install dependencies
+#### [Petfinder API](https://www.petfinder.com/developers/)
 
-   ```bash
-   npm install
-   ```
+## Features
 
-2. Start the app
+-   Display dynamic pet cards.
+-   Click pet card to see info about each friend.
+-   Follow the links to petfinder site or org website to start adoption process.
+-   View latest friends on the homepage.
+-   Filter by species or breed.
+-   View orgs and see what friends they have available.
 
-   ```bash
-   npx expo start
-   ```
+## Tech Stack
 
-In the output, you'll find options to open the app in a
+-   Expo
+-   React Native
+-   Nativewind
+-   Tailwind CSS
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### 🔗 Links
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://andrew-weaver-portfolio.vercel.app/)
 
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/andrew-weaver-1725-profile/)
