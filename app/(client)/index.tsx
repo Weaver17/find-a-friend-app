@@ -11,9 +11,6 @@ import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
 export default function Index() {
     const [friends, setFriends] = useState<Friend[]>([]);
 
-    // TODO:
-    // NEW BG
-
     const {
         loading,
         setLoading,

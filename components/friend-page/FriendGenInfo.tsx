@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 
 const FriendGenInfo = (friend: Friend) => {
     return (
-        <View className="flex items-center gap-4 my-2">
+        <View className="flex items-center gap-2 my-1">
             <View className="flex-row flex-wrap justify-center bg-accent/90  px-2 py-4 w-full rounded-xl">
                 {friend?.breeds?.unknown === true ? <Text>Unknown</Text> : null}
 
@@ -25,7 +25,7 @@ const FriendGenInfo = (friend: Friend) => {
             </View>
 
             {/* AGE / GENDER / SIZE  */}
-            <View className="flex-row justify-between w-full px-2">
+            <View className="flex-row justify-between w-full px-2 py-4 bg-light-200/80 rounded-lg">
                 <Text className="text-dark-200 text-xl font-semibold">
                     {friend?.species}
                 </Text>

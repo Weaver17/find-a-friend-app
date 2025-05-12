@@ -10,7 +10,7 @@ import paw from "@/assets/icons/paw.png";
 import rabbit from "@/assets/icons/rabbit.png";
 import scaley from "@/assets/icons/scaley.png";
 // main images
-import bone_bg from "@/assets/images/bone-bg.png";
+import bone_bg from "@/assets/images/bg.png";
 import logo from "@/assets/images/logo.png";
 // custom socials
 import facebook from "@/assets/icons/custom-socials/facebook.png";

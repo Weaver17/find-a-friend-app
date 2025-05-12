@@ -88,11 +88,13 @@ const FriendPage = () => {
                         {/* COAT / COLORS / DESC  */}
                         <FriendCoatColors {...friend} />
                         {/* ADOPTION STATUS / ATTRIBUTES  */}
-                        <FriendAdoptAtt {...friend} />
-                        {/* ENVIRONMENT / TAGS  */}
-                        <FriendEnvTags {...friend} />
-                        {/* PUBLISHED_AT / CONTACT */}
-                        <FriendAdd {...friend} />
+                        <View className=" w-full mt-2 px-2 py-4 bg-light-200/80 rounded-lg">
+                            <FriendAdoptAtt {...friend} />
+                            {/* ENVIRONMENT / TAGS  */}
+                            <FriendEnvTags {...friend} />
+                            {/* PUBLISHED_AT / CONTACT */}
+                            <FriendAdd {...friend} />
+                        </View>
                         {/* PHOTOS / VIDEOS  */}
                         <View className="mb-16">
                             {friend?.photos?.[1] ? (

@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 
 const FriendAdoptAtt = (friend: Friend) => {
     return (
-        <View className="flex-row gap-4 p-4 mt-2">
+        <View className="flex-row gap-4 px-4">
             <View className="my-2 w-1/3">
                 {friend?.status ? (
                     <View className="justify-between">

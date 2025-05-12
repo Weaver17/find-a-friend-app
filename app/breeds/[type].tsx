@@ -42,7 +42,7 @@ const BreedsPage = () => {
             <Image
                 source={icons.bone_bg}
                 resizeMode="contain"
-                className="absolute w-full h-full left-[50%] top-[50%] -translate-x-[46.5%] -translate-y-[50%] z-0"
+                className="absolute w-full h-full left-[50%] top-[55%] -translate-x-[46.5%] -translate-y-[50%] z-0"
             />
 
             <Text className="text-center text-dark-200 text-4xl font-bold mt-16 mb-4 mx-auto uppercase">

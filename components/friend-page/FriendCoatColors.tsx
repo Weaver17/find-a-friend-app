@@ -8,7 +8,7 @@ const FriendCoatColors = (friend: Friend) => {
     };
 
     return (
-        <View className=" mt-2 px-2 py-4  w-full justify-center gap-4 mx-auto bg-primary/90 rounded-xl">
+        <View className=" mt-1 px-2 py-4  w-full justify-center gap-4 mx-auto bg-primary/90 rounded-xl">
             {friend?.coat ? (
                 <Text className="text-secondary text-center text-xl font-semibold">
                     Coat: {friend?.coat}
