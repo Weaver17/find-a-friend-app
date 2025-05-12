@@ -10,7 +10,7 @@ const _layout = () => {
             <View className="bg-light-100 w-full h-[110px] pt-14">
                 <Image
                     source={icons.logo}
-                    className="w-full h-full "
+                    className="w-full h-full mx-auto"
                     resizeMode="contain"
                 />
             </View>
