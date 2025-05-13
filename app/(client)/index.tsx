@@ -8,6 +8,12 @@ import { Link } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
 
+// TODO:
+// SEARCH PAGE
+// COMBINE BREED AND TYPES PAGE
+// SELECT OPTION FOR ANIMAL TYPE (SHOW ALL THEN FILTER BY COAT, COLOR)
+// ORG PAGE READABILITY
+
 export default function Index() {
     const [friends, setFriends] = useState<Friend[]>([]);
 
