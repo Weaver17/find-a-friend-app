@@ -13,6 +13,7 @@ import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
 // COMBINE BREED AND TYPES PAGE
 // SELECT OPTION FOR ANIMAL TYPE (SHOW ALL THEN FILTER BY COAT, COLOR)
 // ORG PAGE READABILITY
+// USEFETCH FIX
 
 export default function Index() {
     const [friends, setFriends] = useState<Friend[]>([]);

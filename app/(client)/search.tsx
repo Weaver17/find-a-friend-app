@@ -1,10 +1,12 @@
 import SearchBar from "@/components/search-page/SearchBar";
 import SearchSelect from "@/components/search-page/SearchSelect";
 import { icons } from "@/lib/icons";
-import React from "react";
+import React, { useState } from "react";
 import { Button, Image, Text, View } from "react-native";
 
 const SearchPage = () => {
+    const [searchQuery, setSearchQuery] = useState("");
+    // const [searchResults, setSearchResults] = useState([]);
     return (
         <View className="flex-1 bg-light-100 p-4">
             <Image

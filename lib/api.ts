@@ -4,7 +4,10 @@ const CLIENT_ID = process.env.EXPO_PUBLIC_CLIENT_ID;
 const CLIENT_API_KEY = process.env.EXPO_PUBLIC_CLIENT_API_KEY;
 
 // figure out a way to request an access key, and use it for requests
-const fetchAccessKey = async (clientId: string, clientSecret: string) => {
+export const fetchAccessKey = async (
+    clientId: string,
+    clientSecret: string
+) => {
     try {
         const body = `grant_type=client_credentials&client_id=${clientId}&client_secret=${clientSecret}`;
 

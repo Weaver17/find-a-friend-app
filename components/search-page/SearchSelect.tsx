@@ -14,7 +14,7 @@ const SearchSelect = () => {
                 return (
                     <View style={dropdownStyles.buttonStyle}>
                         <Text style={dropdownStyles.buttonTxtStyle}>
-                            {selectedItem || "All"}
+                            {selectedItem || "Breed"}
                         </Text>
                     </View>
                 );

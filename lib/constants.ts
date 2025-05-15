@@ -1,9 +1,8 @@
 import { StyleSheet } from "react-native";
 
 export const SEARCH_DROPDOWN_OPTIONS = [
-    "All",
-    "Type",
     "Breed",
+    "Type",
     "Size (small, medium, large, xlarge)",
     "Gender",
     "Age (baby, young, adult, senior)",
