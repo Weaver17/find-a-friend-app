@@ -1,42 +1,49 @@
 {
-    "expo": {
-        "name": "Find-A-Friend",
-        "slug": "find-a-friend-app",
-        "version": "1.0.0",
-        "orientation": "portrait",
-        "icon": "./assets/images/new-favicon.svg",
-        "scheme": "findafriendapp",
-        "userInterfaceStyle": "automatic",
-        "newArchEnabled": true,
-        "ios": {
-            "supportsTablet": true
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/images/new-favicon.svg",
-                "backgroundColor": "#ffffff"
-            },
-            "edgeToEdgeEnabled": true
-        },
-        "web": {
-            "bundler": "metro",
-            "output": "static",
-            "favicon": "./assets/images/new-favicon.svg"
-        },
-        "plugins": [
-            "expo-router",
-            [
-                "expo-splash-screen",
-                {
-                    "image": "./assets/images/new-favicon.svg",
-                    "imageWidth": 200,
-                    "resizeMode": "contain",
-                    "backgroundColor": "#ffffff"
-                }
-            ]
-        ],
-        "experiments": {
-            "typedRoutes": true
+  "expo": {
+    "name": "Find-A-Friend",
+    "slug": "find-a-friend",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/new-favicon.svg",
+    "scheme": "findafriendapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/new-favicon.svg",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/new-favicon.svg"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/new-favicon.svg",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
         }
-    }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "ca2a2652-95d7-4b76-90e9-95a8c6a0f225"
+      }
+    },
+    "owner": "weaver17"
+  }
 }
